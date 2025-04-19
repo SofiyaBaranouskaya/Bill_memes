@@ -5,20 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bill_memes"
         mc:Ignorable="d"
-        
+
         Title="Registration/Autorisation"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="Manual"
         Loaded="Window_Loaded"
-        
+
         d:DesignWidth="800"
         d:DesignHeight="600"
         Width="Auto"
         Height="Auto">
+
     <Grid>
-        <!-- Верхняя панель с кнопкой закрытия -->
-        <DockPanel LastChildFill="False" Height="30" VerticalAlignment="Top" Background="#FF252526">
+        <!-- Две колонки: левая под генератор, правая под историю -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+            <!-- ширина панели истории -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Верхняя панель -->
+        <DockPanel Grid.ColumnSpan="2" LastChildFill="False" Height="30" VerticalAlignment="Top" Background="#FF252526">
             <TextBlock Text="Meme Generator" 
                       VerticalAlignment="Center" 
                       Margin="10,0,0,0"
@@ -36,38 +44,43 @@
         </DockPanel>
 
         <!-- Кнопки управления -->
-        <StackPanel Orientation="Horizontal" Margin="10,35,0,0" VerticalAlignment="Top" Height="40" HorizontalAlignment="Left">
+        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,35,0,0" VerticalAlignment="Top" Height="40" HorizontalAlignment="Left">
             <Button Content="Generate meme" Width="120" Click="GenerateMeme_Click"/>
             <Button Content="Save as image" Width="120" Margin="10,0,0,0" Click="SaveAsImage_Click"/>
         </StackPanel>
 
-        <!-- Контейнер для мема (прижат к левому краю под кнопками) -->
-        <Border x:Name="memeContainer" BorderBrush="Black" BorderThickness="1" 
+        <!-- Контейнер мема -->
+        <Border Grid.Column="0" x:Name="memeContainer" BorderBrush="Black" BorderThickness="1" 
                 Margin="10,80,0,10" Background="White" 
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Width="600" Height="400">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <!-- Текст слева -->
-                    <ColumnDefinition Width="Auto"/>
-                    <!-- Картинка справа -->
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Текст (не жирный, выравнивание по левому краю) -->
                 <TextBlock x:Name="memeTextBlock" Grid.Column="0" 
                           TextWrapping="Wrap" FontSize="24" 
                           VerticalAlignment="Center" Margin="10" 
                           FontWeight="Normal" TextAlignment="Left"
                           Foreground="Black" FontFamily="Impact"/>
 
-                <!-- Изображение (справа) -->
                 <Image x:Name="imageControl" Grid.Column="1" 
                        Stretch="Uniform" MaxWidth="300" MaxHeight="300" 
                        Margin="10" VerticalAlignment="Center"/>
             </Grid>
         </Border>
-        <Button Content="Create meme" HorizontalAlignment="Left" Margin="660,35,0,0" VerticalAlignment="Top" Click="Create_meme_Click" Height="40" Width="113"/>
-        <Button Content="Profile" HorizontalAlignment="Left" Margin="660,109,0,0" VerticalAlignment="Top" Height="36" Width="113" Click="Button_Click"/>
+
+        <!-- Кнопки справа от генерации -->
+        <Button Grid.Column="0" Content="Create meme" HorizontalAlignment="Left" Margin="660,35,0,0" VerticalAlignment="Top" Click="Create_meme_Click" Height="40" Width="113"/>
+        <Button Grid.Column="0" Content="Profile" HorizontalAlignment="Left" Margin="660,109,0,0" VerticalAlignment="Top" Height="36" Width="113" Click="Button_Click"/>
+
+        <!-- Панель истории -->
+        <Border Grid.Column="1" Background="#f0f0f0" BorderBrush="Violet" BorderThickness="1,0,0,0" Padding="10" Margin="0,30,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="HistoryPanel" />
+            </ScrollViewer>
+        </Border>
     </Grid>
 </Window>

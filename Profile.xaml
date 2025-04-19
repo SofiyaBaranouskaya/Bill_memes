@@ -20,45 +20,53 @@
         <!-- Верхняя панель с кнопкой закрытия -->
         <DockPanel LastChildFill="False" Height="30" VerticalAlignment="Top" Background="#FF252526">
             <TextBlock Text="Create Custom Meme" 
-                       VerticalAlignment="Center" 
-                       Margin="10,0,0,0"
-                       Foreground="White"/>
+                   VerticalAlignment="Center" 
+                   Margin="10,0,0,0"
+                   Foreground="White"/>
             <Button Content="✕" 
-                    DockPanel.Dock="Right" 
-                    Width="40"
-                    Background="Transparent" 
-                    Foreground="White"
-                    BorderThickness="0"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Click="CloseButton_Click"/>
+                DockPanel.Dock="Right" 
+                Width="40"
+                Background="Transparent" 
+                Foreground="White"
+                BorderThickness="0"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="CloseButton_Click"/>
         </DockPanel>
 
-        <!-- Текст с количеством изображений -->
-        <TextBlock x:Name="ImageCountText" Margin="10,87,10,-27" FontSize="16" FontWeight="Bold" />
+        <!-- Блок с кнопками под заголовком -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,35,40,0" VerticalAlignment="Top">
+            <Button Content="Back to Main" Width="150" Height="25" Margin="0,0,10,0" Click="BackToMain_Click"/>
+            <Button Content="Открыть мем по ссылке" Width="150" Height="25" Click="OpenMemeFromLink_Click"/>
+        </StackPanel>
 
-        <Button Content="Открыть мем по ссылке" Margin="600,66,40,492" Click="OpenMemeFromLink_Click"/>
+        <!-- Текст с количеством изображений -->
+        <TextBlock x:Name="ImageCountText" Margin="10,80,10,10" FontSize="16" FontWeight="Bold" VerticalAlignment="Top"/>
 
         <!-- Список изображений -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,221,10,10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="50,120,50,32">
             <ItemsControl x:Name="ImageList">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5" Width="200">
                             <Image Source="{Binding Image}" 
-                                   MaxWidth="200" MaxHeight="200" 
-                                   Stretch="Uniform" 
-                                   MouseDown="Image_MouseDown" 
-                                   Cursor="Hand"/>
+                               MaxWidth="200" MaxHeight="200" 
+                               Stretch="Uniform" 
+                               MouseDown="Image_MouseDown" 
+                               Cursor="Hand"/>
                             <Button Content="{Binding IsLiked, Converter={StaticResource BoolToLikeTextConverter}}"
-                                    Tag="{Binding}"
-                                    Click="LikeButton_Click"
-                                    Margin="0,5,0,0"/>
+                                Tag="{Binding}"
+                                Click="LikeButton_Click"
+                                Margin="0,5,0,0"/>
+                            <Button Content="Поделиться"
+                                Tag="{Binding}"
+                                Click="ShareButton_Click"
+                                Margin="0,5,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

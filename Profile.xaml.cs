@@ -189,5 +189,24 @@ namespace Bill_memes
                 MessageBox.Show("Неверный формат ссылки.");
             }
         }
+
+        private void ShareButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is Profile.UserMeme meme)
+            {
+                string shareLink = $"meme://{meme.Id}";
+                Clipboard.SetText(shareLink);
+                MessageBox.Show("Ссылка на мем скопирована в буфер обмена!", "Поделиться", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+
+        private void BackToMain_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
+        }
+
     }
 }
